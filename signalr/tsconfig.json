@@ -8,6 +8,11 @@
         "./src/WebSocketTransport.ts",
         "./src/NodeHttpClient.ts",
         "./src/XhrHttpClient.ts",
-        "./srcFetchHttpClient.ts"
-    ]
+        "./src/FetchHttpClient.ts"
+    ],
+    "compilerOptions": {
+        "types": [
+            "./node-modules/miniprogram-api-typings/wx/index.d.ts"
+        ]
+    }
 }
