@@ -9,6 +9,9 @@
         "no-floating-promises": true,
         "no-empty": false,
         "no-bitwise": false,
-        "no-console": false
+        "no-console": false,
+        "object-literal-shorthand":false,
+        "object-literal-sort-keys": false,
+        "trailing-comma":false
     }
 }

@@ -79,21 +79,21 @@ export class HttpConnection implements IConnection {
         options = options || {};
         options.logMessageContent = options.logMessageContent || false;
 
-        if (!Platform.isNode && typeof WebSocket !== "undefined" && !options.WebSocket) {
-            options.WebSocket = WebSocket;
+        if (!Platform.isNode && typeof wx.connectSocket !== "undefined" && !options.WebSocket) {
+            // options.WebSocket = WebSocket; // no need this
         } else if (Platform.isNode && !options.WebSocket) {
             if (WebSocketModule) {
                 options.WebSocket = WebSocketModule;
             }
         }
 
-        if (!Platform.isNode && typeof EventSource !== "undefined" && !options.EventSource) {
-            options.EventSource = EventSource;
-        } else if (Platform.isNode && !options.EventSource) {
-            if (typeof EventSourceModule !== "undefined") {
-                options.EventSource = EventSourceModule;
-            }
-        }
+        // if (!Platform.isNode && typeof EventSource !== "undefined" && !options.EventSource) {
+        //     options.EventSource = EventSource;
+        // } else if (Platform.isNode && !options.EventSource) {
+        //     if (typeof EventSourceModule !== "undefined") {
+        //         options.EventSource = EventSourceModule;
+        //     }
+        // }
 
         this.httpClient = options.httpClient || new DefaultHttpClient(this.logger);
         this.connectionState = ConnectionState.Disconnected;
@@ -498,20 +498,7 @@ export class HttpConnection implements IConnection {
             return url;
         }
 
-        if (!Platform.isBrowser || !window.document) {
-            throw new Error(`Cannot resolve '${url}'.`);
-        }
-
-        // Setting the url to the href propery of an anchor tag handles normalization
-        // for us. There are 3 main cases.
-        // 1. Relative  path normalization e.g "b" -> "http://localhost:5000/a/b"
-        // 2. Absolute path normalization e.g "/a/b" -> "http://localhost:5000/a/b"
-        // 3. Networkpath reference normalization e.g "//localhost:5000/a/b" -> "http://localhost:5000/a/b"
-        const aTag = window.document.createElement("a");
-        aTag.href = url;
-
-        this.logger.log(LogLevel.Information, `Normalizing '${url}' to '${aTag.href}'.`);
-        return aTag.href;
+        throw new Error(`Cannot resolve '${url}'.`);
     }
 
     private resolveNegotiateUrl(url: string): string {

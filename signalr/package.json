@@ -50,10 +50,12 @@
     "@types/node": "^10.9.4",
     "@types/request": "^2.47.1",
     "es6-promise": "^4.2.2"
+    
   },
   "dependencies": {
     "eventsource": "^1.0.7",
     "request": "^2.88.0",
-    "ws": "^6.0.0"
+    "ws": "^6.0.0",
+    "miniprogram-api-typings": "^2.8.3"
   }
 }

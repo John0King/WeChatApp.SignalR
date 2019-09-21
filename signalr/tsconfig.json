@@ -2,5 +2,12 @@
     "extends": "../tsconfig.base.json",
     "include": [
         "./src/**/*"
+    ],
+    "exclude": [
+        "./src/Polyfills.ts",
+        "./src/WebSocketTransport.ts",
+        "./src/NodeHttpClient.ts",
+        "./src/XhrHttpClient.ts",
+        "./srcFetchHttpClient.ts"
     ]
 }

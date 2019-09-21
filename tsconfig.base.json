@@ -17,7 +17,7 @@
         "skipLibCheck": true,
         "stripInternal": true,
         "strict": true,
-        "lib": [ "es5", "es2015.promise", "es2015.iterable", "dom" ],
+        "lib": [ "es5", "es2015.promise", "es2015.iterable" ],
         "baseUrl": ".",
         "paths": {
             "@microsoft/signalr": [
