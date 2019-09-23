@@ -12,7 +12,7 @@
         - [ ] Binary （not test yet）
 - [ ] WeChatLongPollingTransport
     - [ ] JsonProtocal
-        - [] TextFormate
+        - [ ] TextFormate
         - [ ] Binary （not test yet）
 
 ## build requirement
