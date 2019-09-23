@@ -39,7 +39,7 @@ export class HandshakeProtocol {
             // content before separator is handshake response
             // optional content after is additional messages
             const responseLength = separatorIndex + 1;
-            messageData = String.fromCharCode.apply(null, binaryData.slice(0, responseLength));
+            messageData = String.fromCharCode.apply(null, binaryData.slice(0, responseLength) as any as number[]);
             remainingData = (binaryData.byteLength > responseLength) ? binaryData.slice(responseLength).buffer : null;
         } else {
             const textData: string = data;

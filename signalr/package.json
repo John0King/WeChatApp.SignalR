@@ -1,5 +1,5 @@
 {
-  "name": "@microsoft/signalr",
+  "name": "wechat-app-signalr",
   "version": "5.0.0-dev",
   "description": "ASP.NET Core SignalR Client",
   "main": "./dist/cjs/index.js",
@@ -49,13 +49,13 @@
     "@types/jest": "^23.3.2",
     "@types/node": "^10.9.4",
     "@types/request": "^2.47.1",
-    "es6-promise": "^4.2.2"
+    "es6-promise": "^4.2.2",
+    "miniprogram-api-typings": "^2.8.3"
     
   },
   "dependencies": {
     "eventsource": "^1.0.7",
     "request": "^2.88.0",
-    "ws": "^6.0.0",
-    "miniprogram-api-typings": "^2.8.3"
+    "ws": "^6.0.0"
   }
 }

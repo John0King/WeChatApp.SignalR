@@ -3,7 +3,7 @@ import { ILogger, LogLevel } from "./ILogger";
 import { ITransport, TransferFormat } from "./ITransport";
 import { Arg, getDataDetail } from "./Utils";
 
-class WeChatWebSocketTransport implements ITransport {
+export class WeChatWebSocketTransport implements ITransport {
 
     private webSocket: WechatMiniprogram.SocketTask | undefined;
     constructor(

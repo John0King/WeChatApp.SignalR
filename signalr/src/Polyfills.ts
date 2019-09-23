@@ -3,7 +3,7 @@
 
 // Not exported from index
 
-export type EventSourceConstructor = new(url: string, eventSourceInitDict?: EventSourceInit) => EventSource;
+export type EventSourceConstructor = new (url: string, eventSourceInitDict?: EventSourceInit) => EventSource;
 
 export interface WebSocketConstructor {
     new(url: string, protocols?: string | string[], options?: any): WebSocket;
@@ -12,3 +12,7 @@ export interface WebSocketConstructor {
     readonly CONNECTING: number;
     readonly OPEN: number;
 }
+
+declare type WebSocket = any;
+declare type EventSource = any;
+declare type EventSourceInit = any;

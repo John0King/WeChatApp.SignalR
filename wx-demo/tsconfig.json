@@ -3,7 +3,7 @@
     "strictNullChecks": true,
     "noImplicitAny": true,
     "module": "CommonJS",
-    "target": "ES5",
+    "target": "es5",
     "allowJs": false,
     "experimentalDecorators": true,
     "noImplicitThis": true,
@@ -20,6 +20,21 @@
     "strictPropertyInitialization": true,
     "typeRoots": [
       "./typings"
+    ],
+    "skipLibCheck": true,
+    "lib": [ "es2015","es2015.promise" ],
+    "rootDir": "./miniprogram",
+    "baseUrl": ".",
+    "paths": {
+      "wechat-app-signalr": [
+          "../signalr"
+      ],
+      "@microsoft/signalr-protocol-msgpack": [
+          "./signalr-protocol-msgpack"
+      ]
+    },
+    "types": [
+      "miniprogram-api-typings"
     ]
   },
   "include": [

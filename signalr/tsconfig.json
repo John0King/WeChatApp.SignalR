@@ -1,5 +1,6 @@
 {
     "extends": "../tsconfig.base.json",
+
     "include": [
         "./src/**/*"
     ],
@@ -8,11 +9,12 @@
         "./src/WebSocketTransport.ts",
         "./src/NodeHttpClient.ts",
         "./src/XhrHttpClient.ts",
-        "./src/FetchHttpClient.ts"
+        "./src/FetchHttpClient.ts",
+        "./src/xxxx.ts"
     ],
     "compilerOptions": {
         "types": [
-            "./node-modules/miniprogram-api-typings/wx/index.d.ts"
+            "miniprogram-api-typings"
         ]
     }
 }

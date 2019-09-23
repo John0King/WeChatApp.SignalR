@@ -7,10 +7,12 @@ import { IConnection } from "./IConnection";
 import { IHttpConnectionOptions } from "./IHttpConnectionOptions";
 import { ILogger, LogLevel } from "./ILogger";
 import { HttpTransportType, ITransport, TransferFormat } from "./ITransport";
-import { LongPollingTransport } from "./LongPollingTransport";
-import { ServerSentEventsTransport } from "./ServerSentEventsTransport";
+// import { LongPollingTransport } from "./LongPollingTransport";
+// import { ServerSentEventsTransport } from "./ServerSentEventsTransport";
+import { WebSocketConstructor } from "./Polyfills";
 import { Arg, createLogger, Platform } from "./Utils";
-import { WebSocketTransport } from "./WebSocketTransport";
+import { WeChatWebSocketTransport } from "./WeChatWebSocketTransport";
+// import { WebSocketTransport } from "./WebSocketTransport";
 
 /** @private */
 const enum ConnectionState {
@@ -37,14 +39,14 @@ export interface IAvailableTransport {
 
 const MAX_REDIRECTS = 100;
 
-let WebSocketModule: any = null;
-let EventSourceModule: any = null;
+// let WebSocketModule: any = null;
+// let EventSourceModule: any = null;
 if (Platform.isNode && typeof require !== "undefined") {
     // In order to ignore the dynamic require in webpack builds we need to do this magic
     // @ts-ignore: TS doesn't know about these names
-    const requireFunc = typeof __webpack_require__ === "function" ? __non_webpack_require__ : require;
-    WebSocketModule = requireFunc("ws");
-    EventSourceModule = requireFunc("eventsource");
+    // const requireFunc = typeof __webpack_require__ === "function" ? __non_webpack_require__ : require;
+    // WebSocketModule = requireFunc("ws");
+    // EventSourceModule = requireFunc("eventsource");
 }
 
 /** @private */
@@ -82,10 +84,11 @@ export class HttpConnection implements IConnection {
         if (!Platform.isNode && typeof wx.connectSocket !== "undefined" && !options.WebSocket) {
             // options.WebSocket = WebSocket; // no need this
         } else if (Platform.isNode && !options.WebSocket) {
-            if (WebSocketModule) {
-                options.WebSocket = WebSocketModule;
-            }
+            // if (WebSocketModule) {
+            //     options.WebSocket = WebSocketModule;
+            // }
         }
+        options.WebSocket = (() => { }) as any as WebSocketConstructor; // websocket detect support
 
         // if (!Platform.isNode && typeof EventSource !== "undefined" && !options.EventSource) {
         //     options.EventSource = EventSource;
@@ -277,9 +280,9 @@ export class HttpConnection implements IConnection {
                 await this.createTransport(url, this.options.transport, negotiateResponse, transferFormat);
             }
 
-            if (this.transport instanceof LongPollingTransport) {
-                this.features.inherentKeepAlive = true;
-            }
+            // if (this.transport instanceof LongPollingTransport) {
+            //     this.features.inherentKeepAlive = true;
+            // }
 
             if (this.connectionState === ConnectionState.Connecting) {
                 // Ensure the connection transitions to the connected state prior to completing this.startInternalPromise.
@@ -321,7 +324,6 @@ export class HttpConnection implements IConnection {
             if (response.statusCode !== 200) {
                 return Promise.reject(new Error(`Unexpected status code returned from negotiate ${response.statusCode}`));
             }
-
             return JSON.parse(response.content as string) as INegotiateResponse;
         } catch (e) {
             this.logger.log(LogLevel.Error, "Failed to complete negotiation with the server: " + e);
@@ -392,14 +394,16 @@ export class HttpConnection implements IConnection {
                 if (!this.options.WebSocket) {
                     throw new Error("'WebSocket' is not supported in your environment.");
                 }
-                return new WebSocketTransport(this.httpClient, this.accessTokenFactory, this.logger, this.options.logMessageContent || false, this.options.WebSocket);
+                return new WeChatWebSocketTransport(this.httpClient, this.accessTokenFactory, this.logger, this.options.logMessageContent || false);
             case HttpTransportType.ServerSentEvents:
-                if (!this.options.EventSource) {
-                    throw new Error("'EventSource' is not supported in your environment.");
-                }
-                return new ServerSentEventsTransport(this.httpClient, this.accessTokenFactory, this.logger, this.options.logMessageContent || false, this.options.EventSource);
+                // if (!this.options.EventSource) {
+                //     throw new Error("'EventSource' is not supported in your environment.");
+                // }
+                // return new ServerSentEventsTransport(this.httpClient, this.accessTokenFactory, this.logger, this.options.logMessageContent || false, this.options.EventSource);
+                throw new Error("'EventSource' is not supported in your environment.");
             case HttpTransportType.LongPolling:
-                return new LongPollingTransport(this.httpClient, this.accessTokenFactory, this.logger, this.options.logMessageContent || false);
+                // return new LongPollingTransport(this.httpClient, this.accessTokenFactory, this.logger, this.options.logMessageContent || false);
+                throw new Error("'LongPollingTransport' is current not implemented.");
             default:
                 throw new Error(`Unknown transport: ${transport}.`);
         }
@@ -546,8 +550,8 @@ export class TransportSendQueue {
     }
 
     private bufferData(data: string | ArrayBuffer): void {
-        if (this.buffer.length && typeof(this.buffer[0]) !== typeof(data)) {
-            throw new Error(`Expected data to be of type ${typeof(this.buffer)} but was of type ${typeof(data)}`);
+        if (this.buffer.length && typeof (this.buffer[0]) !== typeof (data)) {
+            throw new Error(`Expected data to be of type ${typeof (this.buffer)} but was of type ${typeof (data)}`);
         }
 
         this.buffer.push(data);
@@ -571,7 +575,7 @@ export class TransportSendQueue {
             const transportResult = this.transportResult!;
             this.transportResult = undefined;
 
-            const data = typeof(this.buffer[0]) === "string" ?
+            const data = typeof (this.buffer[0]) === "string" ?
                 this.buffer.join("") :
                 TransportSendQueue.concatBuffers(this.buffer);
 

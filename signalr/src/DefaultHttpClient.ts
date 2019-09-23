@@ -4,6 +4,7 @@
 import { AbortError } from "./Errors";
 import { HttpClient, HttpRequest, HttpResponse } from "./HttpClient";
 import { ILogger } from "./ILogger";
+import { WeChatHttpClient } from "./WeChatHttpClient";
 
 /** Default implementation of {@link @microsoft/signalr.HttpClient}. */
 export class DefaultHttpClient extends HttpClient {
@@ -12,7 +13,7 @@ export class DefaultHttpClient extends HttpClient {
     /** Creates a new instance of the {@link @microsoft/signalr.DefaultHttpClient}, using the provided {@link @microsoft/signalr.ILogger} to log messages. */
     public constructor(logger: ILogger) {
         super();
-        this.httpClient = {} as HttpClient;
+        this.httpClient = new WeChatHttpClient(logger);
         // if (typeof fetch !== "undefined") {
         //    this.httpClient = new FetchHttpClient(logger);
         // } else if (typeof XMLHttpRequest !== "undefined") {

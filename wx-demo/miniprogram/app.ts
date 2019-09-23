@@ -1,8 +1,8 @@
 //app.ts
 export interface IMyApp {
-  userInfoReadyCallback?(res: wx.UserInfo): void
+  userInfoReadyCallback?(res: WechatMiniprogram.UserInfo): void
   globalData: {
-    userInfo?: wx.UserInfo
+    userInfo?: WechatMiniprogram.UserInfo
   }
 }
 

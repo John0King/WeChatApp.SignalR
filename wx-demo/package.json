@@ -3,9 +3,11 @@
   "version": "1.0.1",
   "scripts": {
     "compile": "./node_modules/typescript/bin/tsc",
-    "tsc": "node ./node_modules/typescript/lib/tsc.js"
+    "tsc": "node ./node_modules/typescript/lib/tsc.js",
+    "restore": "cd ./miniprogram && yarn"
   },
   "devDependencies": {
+    "miniprogram-api-typings": "^2.8.3",
     "typescript": "^3.3.3333"
   }
 }

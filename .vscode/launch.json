@@ -2,6 +2,12 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:pickProcess}"
+        },
+        {
             "type": "node",
             "request": "attach",
             "name": "Node - Attach by Process ID",
@@ -13,19 +19,23 @@
             "name": "Jest - All",
             "program": "${workspaceFolder}/common/node_modules/jest/bin/jest",
             "cwd": "${workspaceFolder}",
-            "args": ["--runInBand"],
+            "args": [
+                "--runInBand"
+            ],
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen"
-          },
-          {
+        },
+        {
             "type": "node",
             "request": "launch",
             "name": "Jest - Current File",
             "program": "${workspaceFolder}/common/node_modules/jest/bin/jest",
             "cwd": "${workspaceFolder}",
-            "args": ["${fileBasename}"],
+            "args": [
+                "${fileBasename}"
+            ],
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen"
-          }
+        }
     ]
 }

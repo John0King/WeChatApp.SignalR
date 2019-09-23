@@ -13,3 +13,18 @@ const formatNumber = (n: number) => {
   const str = n.toString()
   return str[1] ? str : '0' + str
 }
+
+
+export function parseMessage(message:string):[string,number]{
+  if(!message){
+    throw new Error(`message is null`);
+  }
+  let arr = message.split(" ");
+  if(arr.length != 2){
+    throw new Error(`invalid args:${ message}`);
+  }
+  let p = arr[0];
+  let id = parseInt(arr[1]);
+
+  return [p,id];
+}
