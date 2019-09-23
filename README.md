@@ -15,3 +15,7 @@
         - [] TextFormate
         - [ ] Binary （not test yet）
 
+## build requirement
+1. use [yarn](https://yarnpkg.com/) to support "packagename":"links:../signlar" like path
+2. [dotnet core 3.0](https://dot.net)  to run the EchoServer 
+3. [wechat dev tool](https://developers.weixin.qq.com/miniprogram/dev/devtools/devtools.html)
