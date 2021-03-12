@@ -7,7 +7,7 @@
   "dependencies": {
     "@microsoft/signalr": "link:../signalr",
     "@microsoft/signalr-protocol-msgpack": "link:../signalr-protocol-msgpack",
-    "msgpack5": "^4.0.2"
+    "msgpack5": "^4.5.1"
   },
   "devDependencies": {
     "@types/debug": "0.0.30",
